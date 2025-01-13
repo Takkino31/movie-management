@@ -6,23 +6,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.List;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Cinema implements Serializable {
+public class City {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long cinemaId;
-    private String cinemaName;
+    private Long id;
+    private String name;
     private double longitude, latitude, altitude;
-    private int numberOfRooms;
 
-    @ManyToOne
-    private City city;
+    @OneToMany(mappedBy = "cinemaId")
+    private Collection<Cinema> cinemas;
+
 }
