@@ -23,9 +23,11 @@ public class MoviesManagementApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		iCinemaInitService.initCity();
-		iCinemaInitService.initCinema();
-		System.out.println("Yayayyayy a demarre le serveur");
+		System.out.println("MoviesManagement Application started");
+		iCinemaInitService.initCities();
+		iCinemaInitService.initCinemas();
+		iCinemaInitService.initRooms();
+		System.out.println("Takkino started his application at 9090");
 	}
 
 }

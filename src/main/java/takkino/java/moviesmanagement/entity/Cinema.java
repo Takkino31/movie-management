@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class Cinema implements Serializable {
     private Long cinemaId;
     private String cinemaName;
     private double longitude, latitude, altitude;
-    private int numberOfSeats;
+    private int numberOfRooms;
 
     public City getCity() {
         return city;
@@ -27,14 +29,6 @@ public class Cinema implements Serializable {
 
     public void setCity(City city) {
         this.city = city;
-    }
-
-    public int getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
     }
 
     public double getAltitude() {
@@ -77,6 +71,28 @@ public class Cinema implements Serializable {
         this.cinemaId = cinemaId;
     }
 
+    public int getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+
     @ManyToOne
+    @JoinColumn(name="city_id")
     private City city;
+
+    @OneToMany (mappedBy = "cinema")
+    private Collection<Room> rooms;
+
+    public Collection<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Collection<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+
 }
