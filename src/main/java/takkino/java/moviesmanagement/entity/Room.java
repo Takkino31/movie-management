@@ -6,12 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import java.util.Collection;
+
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class Room {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -54,4 +59,6 @@ public class Room {
         this.cinema = cinema;
     }
 
+    @OneToMany(mappedBy = "room")
+    private Collection<Place> places;
 }

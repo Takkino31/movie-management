@@ -4,9 +4,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import takkino.java.moviesmanagement.entity.Cinema;
 import takkino.java.moviesmanagement.entity.City;
+import takkino.java.moviesmanagement.entity.Place;
 import takkino.java.moviesmanagement.entity.Room;
 import takkino.java.moviesmanagement.repository.CinemaRepository;
 import takkino.java.moviesmanagement.repository.CityRepository;
+import takkino.java.moviesmanagement.repository.PlaceRepository;
 import takkino.java.moviesmanagement.repository.RoomRepository;
 
 import java.util.stream.Stream;
@@ -17,11 +19,13 @@ public class CinemaInitServiceImpl implements ICinemaInitService{
     private final CinemaRepository cinemaRepository;
     private final CityRepository cityRepository;
     private final RoomRepository roomRepository;
+    private final PlaceRepository placeRepository;
 
-    public CinemaInitServiceImpl(CinemaRepository cinemaRepository, CityRepository cityRepository, RoomRepository roomRepository) {
+    public CinemaInitServiceImpl(CinemaRepository cinemaRepository, CityRepository cityRepository, RoomRepository roomRepository, PlaceRepository placeRepository) {
         this.cinemaRepository = cinemaRepository;
         this.cityRepository = cityRepository;
         this.roomRepository = roomRepository;
+        this.placeRepository = placeRepository;
     }
 
     @Override
@@ -49,8 +53,6 @@ public class CinemaInitServiceImpl implements ICinemaInitService{
         }));
     }
 
-
-
     @Override
     public void initRooms() {
         cinemaRepository.findAll().forEach(cinema -> {
@@ -60,6 +62,19 @@ public class CinemaInitServiceImpl implements ICinemaInitService{
                 room.setCinema(cinema);
                 room.setNumberOfSeats(15+(int)(Math.random()*20));
                 roomRepository.save(room);
+            }
+        });
+    }
+
+    @Override
+    public void initPlaces(){
+        roomRepository.findAll().forEach(room -> {
+            for (int i = 0; i < room.getNumberOfSeats(); i++) {
+                System.out.println("ADDING de place n"+ (i+1) + room.getCinema().getCinemaName());
+                Place place = new Place();
+                place.setPlaceNumero(String.valueOf(i+1));
+                place.setRoom(room);
+                placeRepository.save(place);
             }
         });
     }
