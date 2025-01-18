@@ -2,15 +2,10 @@ package takkino.java.moviesmanagement.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import takkino.java.moviesmanagement.entity.Cinema;
-import takkino.java.moviesmanagement.entity.City;
-import takkino.java.moviesmanagement.entity.Place;
-import takkino.java.moviesmanagement.entity.Room;
-import takkino.java.moviesmanagement.repository.CinemaRepository;
-import takkino.java.moviesmanagement.repository.CityRepository;
-import takkino.java.moviesmanagement.repository.PlaceRepository;
-import takkino.java.moviesmanagement.repository.RoomRepository;
+import takkino.java.moviesmanagement.entity.*;
+import takkino.java.moviesmanagement.repository.*;
 
+import java.util.Date;
 import java.util.stream.Stream;
 
 @Service
@@ -20,17 +15,21 @@ public class CinemaInitServiceImpl implements ICinemaInitService{
     private final CityRepository cityRepository;
     private final RoomRepository roomRepository;
     private final PlaceRepository placeRepository;
+    private final CategoryRepository categoryRepository;
+    private final MovieRepository movieRepository;
 
-    public CinemaInitServiceImpl(CinemaRepository cinemaRepository, CityRepository cityRepository, RoomRepository roomRepository, PlaceRepository placeRepository) {
+    public CinemaInitServiceImpl(CinemaRepository cinemaRepository, CityRepository cityRepository, RoomRepository roomRepository, PlaceRepository placeRepository, CategoryRepository categoryRepository, MovieRepository movieRepository) {
         this.cinemaRepository = cinemaRepository;
         this.cityRepository = cityRepository;
         this.roomRepository = roomRepository;
         this.placeRepository = placeRepository;
+        this.categoryRepository = categoryRepository;
+        this.movieRepository = movieRepository;
     }
 
     @Override
     public void initCities() {
-        Stream.of("Saint-Louis","Dakar","Paris","London","")
+        Stream.of("Saint-Louis","Dakar","Paris","London","Miami")
             .forEach(name -> {
                 City city = new City();
                 city.setName(name);
@@ -70,11 +69,36 @@ public class CinemaInitServiceImpl implements ICinemaInitService{
     public void initPlaces(){
         roomRepository.findAll().forEach(room -> {
             for (int i = 0; i < room.getNumberOfSeats(); i++) {
-                System.out.println("ADDING de place n"+ (i+1) + room.getCinema().getCinemaName());
                 Place place = new Place();
                 place.setPlaceNumero(String.valueOf(i+1));
+                place.setLatitude(3+(int)(Math.random()*2));
+                place.setLongitude(2+(int)(Math.random()*2));
+                place.setAltitude(4+(int)(Math.random()*2));
                 place.setRoom(room);
                 placeRepository.save(place);
+            }
+        });
+    }
+
+    @Override
+    public void initCategories() {
+        Stream.of("Drama","Horreur","Amour","Passion","Comedies")
+            .forEach(name -> {
+                Category category = new Category();
+                category.setName(name);
+                categoryRepository.save(category);
+            });
+    }
+
+    @Override
+    public void initMovies() {
+        categoryRepository.findAll().forEach(category -> {
+            for (int i = 0; i < 5; i++) {
+                Movie movie = new Movie();
+                movie.setDateProjection(new Date());
+                movie.setTitle("Film "+ (i+1));
+                movie.setCategory(category);
+                movieRepository.save(movie);
             }
         });
     }

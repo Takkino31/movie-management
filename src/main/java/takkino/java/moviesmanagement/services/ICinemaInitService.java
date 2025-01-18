@@ -5,4 +5,6 @@ public interface ICinemaInitService {
     void initCities();
     void initRooms();
     void initPlaces();
+    void initCategories();
+    void initMovies();
 }

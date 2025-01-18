@@ -28,6 +28,8 @@ public class MoviesManagementApplication implements CommandLineRunner{
 		iCinemaInitService.initCinemas();
 		iCinemaInitService.initRooms();
 		iCinemaInitService.initPlaces();
+		iCinemaInitService.initCategories();
+		iCinemaInitService.initMovies();
 		System.out.println("Takkino started his application at 9090");
 	}
 

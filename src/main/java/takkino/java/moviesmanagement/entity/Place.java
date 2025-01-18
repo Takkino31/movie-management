@@ -9,7 +9,7 @@ public class Place {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long placeId;
     private String placeNumero;
-    private String latitude, longitude, altitude;
+    private double latitude, longitude, altitude;
 
     public Long getPlaceId() {
         return placeId;
@@ -27,27 +27,27 @@ public class Place {
         this.placeNumero = placeNumero;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(String altitude) {
+    public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 
