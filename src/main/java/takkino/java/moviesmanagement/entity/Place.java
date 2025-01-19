@@ -2,6 +2,8 @@ package takkino.java.moviesmanagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 public class Place {
 
@@ -52,7 +54,6 @@ public class Place {
     }
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
     private Room room;
 
     public Room getRoom() {
@@ -61,5 +62,15 @@ public class Place {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    @OneToMany (mappedBy = "place")
+    private Collection<Ticket> tickets;
+
+    public Collection<Ticket> getTickets() {
+        return tickets;
+    }
+    public void setTickets(Collection<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

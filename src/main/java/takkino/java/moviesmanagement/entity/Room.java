@@ -70,14 +70,25 @@ public class Room {
         this.places = places;
     }
 
-    @ManyToMany
-    private Collection<Movie> movies;
+//    @ManyToMany
+//    private Collection<Movie> movies;
+//
+//    public Collection<Movie> getMovies() {
+//        return movies;
+//    }
+//
+//    public void setMovies(Collection<Movie> movies) {
+//        this.movies = movies;
+//    }
 
-    public Collection<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Collection<Movie> movies) {
-        this.movies = movies;
-    }
+//    @OneToMany(mappedBy = "roomProjection")
+//    private Collection<Projection> projections;
+//
+//    public Collection<Projection> getProjections() {
+//        return projections;
+//    }
+//
+//    public void setProjections(Collection<Projection> projections) {
+//        this.projections = projections;
+//    }
 }

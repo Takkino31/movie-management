@@ -69,7 +69,7 @@ public class City {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "cinemaId")
+    @OneToMany(mappedBy = "city")
     private Collection<Cinema> cinemas;
 
 }

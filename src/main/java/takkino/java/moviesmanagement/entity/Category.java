@@ -31,7 +31,7 @@ public class Category {
         return name;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private Collection<Movie> movies;
 
     public void setName(String name) {

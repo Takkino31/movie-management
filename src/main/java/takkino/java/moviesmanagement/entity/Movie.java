@@ -45,17 +45,6 @@ public class Movie {
         this.dateProjection = dateProjection;
     }
 
-    @ManyToMany
-    private Collection<Room> rooms;
-
-    public Collection<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(Collection<Room> rooms) {
-        this.rooms = rooms;
-    }
-
     @ManyToOne
     private Category category;
 
@@ -65,5 +54,16 @@ public class Movie {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @OneToMany(mappedBy = "movie")
+    private Collection<ProjectionMovie> projectionMovies;
+
+    public Collection<ProjectionMovie> getProjectionMovies() {
+        return projectionMovies;
+    }
+
+    public void setProjectionMovies(Collection<ProjectionMovie> projectionMovies) {
+        this.projectionMovies = projectionMovies;
     }
 }
